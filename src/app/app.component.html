@@ -42,19 +42,21 @@
                 
                 <div class="list-group contact-group">
                     <a href="#" class="list-group-item">
-                        <div class="media">
+                        <div *ngFor ="let employee of employees" class="media">
                             <div class="pull-left">
-                                <img class="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="...">
+                                <img class="rounded-circle" src="{{employee?.imageUrl}}" alt="...">
                             </div>
                             <div class="media-body">
-                                <h4 class="media-heading">John Doe <small>Software Engineer at Facebook, Inc.</small></h4>
+                                <h4 class="media-heading"> {{employee?.name}} <small> {{employee?.jobTitle}}</small></h4>
                                 <div class="media-content">
-                                    <i class="fa fa-map-marker"></i> San Francisco, California, United States
                                     <ul class="list-unstyled">
-                                        <li><i class="fa fa-skype"></i> jdoe.doe</li>
-                                        <li><i class="fa fa-mobile"></i> +63 912 212 2451</li>
-                                        <li><i class="fa fa-envelope-o"></i> joedoe@email.com</li>
+                                        <li><i class="fa fa-mobile"></i> {{employee?.phone}} </li>
+                                        <li><i class="fa fa-envelope-o"></i> {{employee?.email}} </li>
                                     </ul>
+                                </div>
+                                <div class="float-right btn-group btn-group-sm">
+                                    <a class ="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"> <i class = "fa fa-pencil"></i> </a> 
+                                    <a class ="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"> <i class = "fa fa-times"></i> </a>
                                 </div>
                             </div>
                         </div>
