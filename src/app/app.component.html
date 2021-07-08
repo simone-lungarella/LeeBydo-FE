@@ -54,6 +54,7 @@
             </div>
         </div>
 
+        <!-- DELETE DIALOG -->
         <div class="modal fade" id="deleteEmployeeModal" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
@@ -75,6 +76,7 @@
             </div>
         </div>
 
+        <!-- CREATE DIALOG -->
         <div class="modal modal-pull-right" data-easein="fadeInRight" data-easeout="fadeOutRight"
             id="modal-pull-right-add" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
             <div class="modal-dialog">
@@ -92,36 +94,40 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="contact-add-content">
-                                    <form class="form-horizontal tabular-form margin-top-10">
+                                    <form #addForm="ngForm" (ngSubmit)="onAddEmployee(addForm)" class="form-horizontal tabular-form margin-top-10">
                                         <div class="form-group">
                                             <label for="name" class="col-sm-2 control-label">Name</label>
                                             <div class="col-sm-10 tabular-border">
-                                                <input type="text" class="form-control" id="name"
-                                                    placeholder="Full Name">
+                                                <input type="text" class="form-control" id="name" placeholder="Full Name" ngModel name="name" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="email" class="col-sm-2 control-label">Email</label>
                                             <div class="col-sm-10 tabular-border">
-                                                <input type="text" class="form-control" id="email" placeholder="Email">
+                                                <input type="text" class="form-control" id="email" placeholder="Email" ngModel name="email" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="phone" class="col-sm-2 control-label">Phone</label>
                                             <div class="col-sm-10 tabular-border">
-                                                <input type="text" class="form-control" id="phone" placeholder="Phone">
+                                                <input type="text" class="form-control" id="phone" placeholder="Phone" ngModel name="phone" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="name" class="col-sm-2 control-label">Job Title</label>
                                             <div class="col-sm-10 tabular-border">
-                                                <input type="text" class="form-control" id="name"
-                                                    placeholder="Job Title">
+                                                <input type="text" class="form-control" id="name" placeholder="Job Title" ngModel name="jobTitle" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="name" class="col-sm-2 control-label">Image Url</label>
+                                            <div class="col-sm-10 tabular-border">
+                                                <input type="text" class="form-control" id="imageUrl" placeholder="Image Url" ngModel name="imageUrl" required>
                                             </div>
                                         </div>
                                         <div class="form-actions">
-                                            <button type="button" class="btn btn-silver btn-flat">Cancel</button>
-                                            <button type="button" class="btn btn-green btn-flat">Save Changes</button>
+                                            <button type="button" class="btn btn-silver btn-flat" id="close-add-dialog">Cancel</button>
+                                            <button type="submit" [disabled]="addForm.invalid" class="btn btn-green btn-flat">Add</button>
                                         </div>
                                     </form>
                                 </div>
@@ -132,6 +138,7 @@
             </div>
         </div>
 
+        <!-- EDIT DIALOG -->
         <div class="modal modal-pull-right" data-easein="fadeInRight" data-easeout="fadeOutRight"
             id="modal-pull-right-edit" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
             <div class="modal-dialog">
@@ -139,7 +146,7 @@
                     <div class="modal-body">
                         <div class="row modal-close">
                             <div class="col-md-12 padding-bottom-8 padding-top-8 bg-silver">
-                                <h4 class="pull-left"><b>Edit the contact </b></h4>
+                                <h4 class="pull-left"><b>Edit the contact</b></h4>
                                 <ul class="list-unstyled list-inline text-right">
                                     <li class="close-right-modal"><span class="fa fa-times fa-2x"
                                             data-dismiss="modal"></span></li>
@@ -149,36 +156,44 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="contact-add-content">
-                                    <form class="form-horizontal tabular-form margin-top-10">
+                                    <form #editForm="ngForm" class="form-horizontal tabular-form margin-top-10">
+                                        
+                                        <input type="hidden" name="id" ngModel="{{editEmployee?.id}}" class ="form-control" id="id">
+                                        <input type="hidden" name="employeeCode" ngModel="{{editEmployee?.employeeCode}}" class ="form-control" id="employeeCode">
                                         <div class="form-group">
                                             <label for="name" class="col-sm-2 control-label">Name</label>
                                             <div class="col-sm-10 tabular-border">
-                                                <input type="text" class="form-control" id="name"
-                                                    placeholder="Full Name">
+                                                <input type="text" class="form-control" id="name" placeholder="Full Name" name="name" ngModel="{{editEmployee?.name}}" >
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="email" class="col-sm-2 control-label">Email</label>
                                             <div class="col-sm-10 tabular-border">
-                                                <input type="text" class="form-control" id="email" placeholder="Email">
+                                                <input type="text" class="form-control" id="email" placeholder="Email" name="email" ngModel="{{editEmployee?.email}}" >
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="phone" class="col-sm-2 control-label">Phone</label>
                                             <div class="col-sm-10 tabular-border">
-                                                <input type="text" class="form-control" id="phone" placeholder="Phone">
+                                                <input type="text" class="form-control" id="phone" placeholder="Phone" name="phone" ngModel="{{editEmployee?.phone}}" >
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="name" class="col-sm-2 control-label">Job Title</label>
                                             <div class="col-sm-10 tabular-border">
-                                                <input type="text" class="form-control" id="name"
-                                                    placeholder="Job Title">
+                                                <input type="text" class="form-control" id="name" placeholder="Job Title" name="jobTitle" ngModel="{{editEmployee?.jobTitle}}" >
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <label for="name" class="col-sm-2 control-label">Image Url</label>
+                                            <div class="col-sm-10 tabular-border">
+                                                <input type="text" class="form-control" id="imageUrl" placeholder="Image Url" name="imageUrl" ngModel="{{editEmployee?.imageUrl}}" >
+                                            </div>
+                                        </div>
+
                                         <div class="form-actions">
                                             <button type="button" class="btn btn-silver btn-flat">Cancel</button>
-                                            <button type="button" class="btn btn-green btn-flat">Save Changes</button>
+                                            <button type="submit" (click)="onUpdateEmployee(editForm.value)" class="btn btn-green btn-flat">Save Changes</button>
                                         </div>
                                     </form>
                                 </div>
